@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/layout_1"
+            android:layout_width="match_parent"
+            android:layout_height="60sp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5sp"
+                android:text="Font Size: "
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/action_size_sub"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_sub" />
+
+            <TextView
+                android:id="@+id/text_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10sp"
+                android:layout_marginEnd="10sp"
+                android:text="10"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/action_size_add"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_add" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10sp"
+                android:text="Color: "
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/action_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10sp"
+                android:text="#000000"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:layout_gravity="center"
+                android:layout_marginStart="5sp"
+                android:layout_marginEnd="5sp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/action_bold"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60sp"
+                    android:text="@string/bold_icon"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:chipIcon="@drawable/ic_bold"
+                    app:chipIconEnabled="true"
+                    app:chipIconSize="30dp"
+                    app:iconEndPadding="4sp"
+                    app:iconStartPadding="4sp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/action_italic"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60sp"
+                    android:layout_marginStart="10sp"
+                    android:gravity="center"
+                    android:text="@string/italic_icon"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:chipIcon="@drawable/ic_italic"
+                    app:chipIconEnabled="true"
+                    app:chipIconSize="30dp"
+                    app:iconEndPadding="4sp"
+                    app:iconStartPadding="4sp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/action_underline"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60sp"
+                    android:layout_marginStart="10sp"
+                    android:background="@drawable/ic_bold"
+                    android:gravity="center"
+                    android:text="@string/underline_icon"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:chipIcon="@drawable/ic_underline"
+                    app:chipIconEnabled="true"
+                    app:chipIconSize="30dp"
+                    app:iconEndPadding="4sp"
+                    app:iconStartPadding="4sp" />
+
+            </com.google.android.material.chip.ChipGroup>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/outlinedTextField"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:hint="Input text here..."
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        tools:ignore="HardcodedText">
+
+        <com.viettel.texteditor.MyEditText
+            android:id="@+id/editor"
+            android:layout_width="match_parent"
+            android:layout_height="200sp"
+            android:inputType="textMultiLine"
+            android:longClickable="false"
+            android:padding="5sp"
+            android:selectAllOnFocus="true"
+            android:textSize="10sp"
+            android:textColor="#000000"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>

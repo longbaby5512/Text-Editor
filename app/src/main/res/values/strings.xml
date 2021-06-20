@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Text Editor</string>
+    <string name="hint_input_text">Input text</string>
+    <string name="underline_icon"><u>Underline</u></string>
+    <string name="italic_icon"><i>Italic</i></string>
+    <string name="bold_icon"><b>Bold</b></string>
+    <string name="init_size_text">22</string>
+    <string name="color_icon">A</string>
+</resources>
