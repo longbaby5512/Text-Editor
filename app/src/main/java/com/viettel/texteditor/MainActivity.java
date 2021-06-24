@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.style.AbsoluteSizeSpan;
@@ -19,20 +20,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.drawable.DrawableCompat;
 
-import com.google.android.material.chip.Chip;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-    private Chip boldButton;
-    private Chip italicButton;
-    private Chip underlineButton;
+    private MaterialButton boldButton;
+    private MaterialButton italicButton;
+    private MaterialButton underlineButton;
     private MyEditText editor;
     private TextView sizeText;
     private ImageButton addSizeButton;
     private ImageButton subSizeButton;
-    private TextView colorButton;
+    private ImageButton colorButton;
     private int selectionStart;
     private int selectionEnd;
     private int start;
@@ -45,18 +47,22 @@ public class MainActivity extends AppCompatActivity {
 
         init();
 
-        setTextStyle(boldButton, new StyleSpan(Typeface.BOLD));
-        setTextStyle(italicButton, new StyleSpan(Typeface.ITALIC));
-        setTextStyle(underlineButton, new UnderlineSpan());
+        setTextStyle(boldButton, StyleState.BOLD);
+        setTextStyle(italicButton, StyleState.ITALIC);
+        setTextStyle(underlineButton, StyleState.UNDERLINE);
         setTextSize(addSizeButton, true);
         setTextSize(subSizeButton, false);
         setColorText(colorButton);
 
 
+
     }
 
-    private void setColorText(TextView button) {
+    private void setColorText(ImageButton button) {
         button.setOnClickListener(v -> {
+            if (Objects.requireNonNull(editor.getText()).length() == 0) {
+                return;
+            }
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             final View colorView = getLayoutInflater().inflate(R.layout.color_choose_layout, null);
 
@@ -81,16 +87,27 @@ public class MainActivity extends AppCompatActivity {
                 if(editor.hasSelection()) {
                     selectionStart = editor.getSelectionStart();
                     selectionEnd = editor.getSelectionEnd();
-                    Log.d("SELECT", "Start: " + selectionStart + "\tEnd: " + selectionEnd);
                 }
+                Log.d("SELECT", "Start: " + selectionStart + "\tEnd: " + selectionEnd);
 
                 start = Math.min(selectionStart, selectionEnd);
                 end = Math.max(selectionStart, selectionEnd);
 
                 // Split text into 3 parts
-                SpannableStringBuilder beginningString = new SpannableStringBuilder(Objects.requireNonNull(editor.getText()).subSequence(0, start));
+                SpannableStringBuilder beginningString;
+                if (start == 0) {
+                    beginningString = new SpannableStringBuilder("");
+                } else {
+                    beginningString = new SpannableStringBuilder(Objects.requireNonNull(editor.getText()).subSequence(0, start));
+                }
                 SpannableStringBuilder selectedString = new SpannableStringBuilder(Objects.requireNonNull(editor.getText()).subSequence(start, end));
-                SpannableStringBuilder endingString = new SpannableStringBuilder(Objects.requireNonNull(editor.getText()).subSequence(end, Objects.requireNonNull(editor.getText()).length()));
+
+                SpannableStringBuilder endingString;
+                if (end == editor.getText().length()) {
+                    endingString = new SpannableStringBuilder("");
+                } else {
+                    endingString = new SpannableStringBuilder(Objects.requireNonNull(editor.getText()).subSequence(end, Objects.requireNonNull(editor.getText()).length()));
+                }
 
                 // Set style for selected text
                 selectedString.setSpan(new ForegroundColorSpan(color), 0, selectedString.length(), 0);
@@ -102,13 +119,9 @@ public class MainActivity extends AppCompatActivity {
                 //Show formatted text
                 editor.setText(beginningString);
                 editor.setSelection(end);
-                if (color == Color.BLACK) {
-                    colorButton.setText("#FFFFFF");
-                    colorButton.setTextColor(Color.BLACK);
-                } else {
-                    colorButton.setText(colorString);
-                    colorButton.setTextColor(color);
-                }
+                Drawable unwrappedColorDrawable = colorButton.getBackground();
+                Drawable wrappedColorDrawable = DrawableCompat.wrap(unwrappedColorDrawable);
+                DrawableCompat.setTint(wrappedColorDrawable, color);
             });
 
             builder.setNegativeButton("Cancel", null);
@@ -121,6 +134,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setTextSize(ImageButton button, boolean isAdd) {
         button.setOnClickListener(v -> {
+            if (Objects.requireNonNull(editor.getText()).length() == 0) {
+                return;
+            }
+
             String sizeString = sizeText.getText().toString();
             try {
                 Integer.parseInt(sizeString);
@@ -128,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
                 Toast.makeText(getApplicationContext(), "Wrong size text", Toast.LENGTH_SHORT).show();
             }
+
             int size = Integer.parseInt(sizeString);
             if (isAdd) {
                 size++;
@@ -138,16 +156,26 @@ public class MainActivity extends AppCompatActivity {
             if(editor.hasSelection()) {
                 selectionStart = editor.getSelectionStart();
                 selectionEnd = editor.getSelectionEnd();
-                Log.d("SELECT", "Start: " + selectionStart + "\tEnd: " + selectionEnd);
             }
-
+            Log.d("SELECT", "Start: " + selectionStart + "\tEnd: " + selectionEnd);
             start = Math.min(selectionStart, selectionEnd);
             end = Math.max(selectionStart, selectionEnd);
 
             // Split text into 3 parts
-            SpannableStringBuilder beginningString = new SpannableStringBuilder(Objects.requireNonNull(editor.getText()).subSequence(0, start));
+            SpannableStringBuilder beginningString;
+            if (start == 0) {
+                beginningString = new SpannableStringBuilder("");
+            } else {
+                beginningString = new SpannableStringBuilder(Objects.requireNonNull(editor.getText()).subSequence(0, start));
+            }
             SpannableStringBuilder selectedString = new SpannableStringBuilder(Objects.requireNonNull(editor.getText()).subSequence(start, end));
-            SpannableStringBuilder endingString = new SpannableStringBuilder(Objects.requireNonNull(editor.getText()).subSequence(end, Objects.requireNonNull(editor.getText()).length()));
+
+            SpannableStringBuilder endingString;
+            if (end == editor.getText().length()) {
+                endingString = new SpannableStringBuilder("");
+            } else {
+                endingString = new SpannableStringBuilder(Objects.requireNonNull(editor.getText()).subSequence(end, Objects.requireNonNull(editor.getText()).length()));
+            }
 
             // Set style for selected text
             selectedString.setSpan(new AbsoluteSizeSpan(sp2px(size, getApplicationContext())), 0, selectedString.length(), 0);
@@ -163,23 +191,37 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setTextStyle(Chip button, Object styleSpan) {
+    private void setTextStyle(MaterialButton button, Object styleSpan) {
         button.setOnClickListener(v -> {
+            if (Objects.requireNonNull(editor.getText()).length() == 0) {
+                return;
+            }
             // Set the beginning and end position of the text selected
-            if(editor.hasSelection()) {
+            if (editor.hasSelection()) {
                 selectionStart = editor.getSelectionStart();
                 selectionEnd = editor.getSelectionEnd();
-                Log.d("SELECT", "Start: " + selectionStart + "\tEnd: " + selectionEnd);
             }
+
+            Log.d("SELECT", "Start: " + selectionStart + "\tEnd: " + selectionEnd);
 
             start = Math.min(selectionStart, selectionEnd);
             end = Math.max(selectionStart, selectionEnd);
 
             // Split text into 3 parts
-            SpannableStringBuilder beginningString = new SpannableStringBuilder(Objects.requireNonNull(editor.getText()).subSequence(0, start));
+            SpannableStringBuilder beginningString;
+            if (start == 0) {
+                beginningString = new SpannableStringBuilder("");
+            } else {
+                beginningString = new SpannableStringBuilder(Objects.requireNonNull(editor.getText()).subSequence(0, start));
+            }
             SpannableStringBuilder selectedString = new SpannableStringBuilder(Objects.requireNonNull(editor.getText()).subSequence(start, end));
-            SpannableStringBuilder endingString = new SpannableStringBuilder(Objects.requireNonNull(editor.getText()).subSequence(end, Objects.requireNonNull(editor.getText()).length()));
 
+            SpannableStringBuilder endingString;
+            if (end == editor.getText().length()) {
+                endingString = new SpannableStringBuilder("");
+            } else {
+                endingString = new SpannableStringBuilder(Objects.requireNonNull(editor.getText()).subSequence(end, Objects.requireNonNull(editor.getText()).length()));
+            }
             // Set style for selected text
             if (button.isChecked()) {
                 selectedString.setSpan(styleSpan, 0, selectedString.length(), 0);
@@ -210,5 +252,11 @@ public class MainActivity extends AppCompatActivity {
 
     public static int sp2px(float sp, Context context) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, context.getResources().getDisplayMetrics());
+    }
+
+    private static class StyleState {
+        static final StyleSpan BOLD = new StyleSpan(Typeface.BOLD);
+        static final StyleSpan ITALIC = new StyleSpan(Typeface.ITALIC);
+        static final UnderlineSpan UNDERLINE = new UnderlineSpan();
     }
 }

@@ -12,22 +12,22 @@
         android:layout_height="wrap_content">
         <LinearLayout
             android:id="@+id/layout_1"
-            android:layout_width="match_parent"
-            android:layout_height="60sp">
+            android:layout_width="wrap_content"
+            android:layout_height="60dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="5sp"
+                android:layout_marginStart="5dp"
                 android:text="Font Size: "
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/action_size_sub"
-                android:layout_width="40sp"
-                android:layout_height="40sp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:background="@drawable/ic_sub" />
 
@@ -36,16 +36,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="10sp"
-                android:layout_marginEnd="10sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:text="10"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/action_size_add"
-                android:layout_width="40sp"
-                android:layout_height="40sp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:background="@drawable/ic_add" />
 
@@ -53,21 +53,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="10sp"
+                android:layout_marginStart="10dp"
                 android:text="Color: "
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/action_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="10sp"
-                android:text="#000000"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_color"
+                android:backgroundTint="@color/black"
+                android:layout_gravity="center"
+                android:id="@+id/action_color"/>
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -79,61 +76,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.chip.ChipGroup
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_gravity="center"
-                android:layout_marginStart="5sp"
-                android:layout_marginEnd="5sp">
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp">
 
-                <com.google.android.material.chip.Chip
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/action_bold"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
-                    android:layout_height="60sp"
-                    android:text="@string/bold_icon"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    app:chipIcon="@drawable/ic_bold"
-                    app:chipIconEnabled="true"
-                    app:chipIconSize="30dp"
-                    app:iconEndPadding="4sp"
-                    app:iconStartPadding="4sp" />
-
-                <com.google.android.material.chip.Chip
+                    android:layout_height="50dp"
+                    app:icon="@drawable/ic_bold"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"/>
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/action_italic"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
-                    android:layout_height="60sp"
-                    android:layout_marginStart="10sp"
-                    android:gravity="center"
-                    android:text="@string/italic_icon"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    app:chipIcon="@drawable/ic_italic"
-                    app:chipIconEnabled="true"
-                    app:chipIconSize="30dp"
-                    app:iconEndPadding="4sp"
-                    app:iconStartPadding="4sp" />
-
-                <com.google.android.material.chip.Chip
+                    android:layout_height="50dp"
+                    app:icon="@drawable/ic_italic"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"/>
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
                     android:id="@+id/action_underline"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60sp"
-                    android:layout_marginStart="10sp"
-                    android:background="@drawable/ic_bold"
-                    android:gravity="center"
-                    android:text="@string/underline_icon"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    app:chipIcon="@drawable/ic_underline"
-                    app:chipIconEnabled="true"
-                    app:chipIconSize="30dp"
-                    app:iconEndPadding="4sp"
-                    app:iconStartPadding="4sp" />
+                    android:layout_height="50dp"
+                    app:icon="@drawable/ic_underline"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"/>
+            </com.google.android.material.button.MaterialButtonToggleGroup>
 
-            </com.google.android.material.chip.ChipGroup>
         </LinearLayout>
     </HorizontalScrollView>
 
